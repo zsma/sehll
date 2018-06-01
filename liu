@@ -1,0 +1,22 @@
+GDFdsf
+FDgadsgf
+
+
+drgfdsfgh
+[root@web1 mycode]# sed  -i  '1c [UNIT]' tuned.service
+[root@web1 mycode]# svn ci -m "modified"
+[root@web2 mycode]# sed  -i  '1c [unit]' tuned.service
+[root@web2 mycode]# svn ci -m "modified"
+Sending        tuned.service
+Transmitting file data .svn: Commit failed (details follow):
+svn: File '/tuned.service' is out of date(过期)
+[root@web2 mycode]# svn update                    //出现冲突，需要解决
+Conflict discovered in 'tuned.service'.
+Select: (p) postpone, (df) diff-full, (e) edit,
+        (mc) mine-conflict, (tc) theirs-conflict,
+        (s) show all options:p                    //选择先标记p，随后解决
+[root@web2 mycode]# ls
+tuned.service   tuned.service.mine        tuned.service.r10    tuned.service.r9
+[root@web2 mycode]# mv tuned.service.mine tuned.service
+[root@web2 mycode]# rm  -rf  tuned.service.r10 tuned.service.r9
+[root@web2 mycode]# svn ci -m "modified"    //解决冲
